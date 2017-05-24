@@ -33,6 +33,8 @@
 #define FIRMWARE_VERSION_MINOR 0
 #define FIRMWARE_VERSION_REVISION 0
 
+#define CALLBACK_VALUE_TYPE CALLBACK_VALUE_TYPE_INT16
+
 #include "config_custom_bootloader.h"
 
 #endif
