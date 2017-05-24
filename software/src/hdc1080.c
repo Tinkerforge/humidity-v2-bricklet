@@ -133,7 +133,7 @@ void hdc1080_init_i2c(HDC1080 *hdc1080) {
 
 	const XMC_I2C_CH_CONFIG_t master_channel_config = {
 		.baudrate = HDC1080_I2C_BAUDRATE,
-		.address  = 0 //HDC1080_I2C_ADDRESS << 1
+		.address  = 0
 	};
 
 	const XMC_GPIO_CONFIG_t sda_pin_config =  {
