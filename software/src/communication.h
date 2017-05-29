@@ -34,7 +34,14 @@ void communication_tick(void);
 void communication_init(void);
 
 // Constants
+#define HUMIDITY_V2_THRESHOLD_OPTION_OFF 'x'
+#define HUMIDITY_V2_THRESHOLD_OPTION_OUTSIDE 'o'
+#define HUMIDITY_V2_THRESHOLD_OPTION_INSIDE 'i'
+#define HUMIDITY_V2_THRESHOLD_OPTION_SMALLER '<'
+#define HUMIDITY_V2_THRESHOLD_OPTION_GREATER '>'
 
+#define HUMIDITY_V2_HEATER_CONFIG_DISABLED 0
+#define HUMIDITY_V2_HEATER_CONFIG_ENABLED 1
 
 // Function and callback IDs and structs
 #define FID_GET_HUMIDITY 1
@@ -45,6 +52,8 @@ void communication_init(void);
 #define FID_GET_TEMPERATURE_CALLBACK_CONFIGURATION 7
 #define FID_SET_HEATER_CONFIGURATION 9
 #define FID_GET_HEATER_CONFIGURATION 10
+#define FID_SET_MOVING_AVERAGE_CONFIGURATION 11
+#define FID_GET_MOVING_AVERAGE_CONFIGURATION 12
 
 #define FID_CALLBACK_HUMIDITY 4
 #define FID_CALLBACK_TEMPERATURE 8
@@ -64,10 +73,27 @@ typedef struct {
 	uint8_t heater_config;
 } __attribute__((__packed__)) GetHeaterConfiguration_Response;
 
+typedef struct {
+	TFPMessageHeader header;
+	uint16_t moving_average_length_humidity;
+	uint16_t moving_average_length_temperature;
+} __attribute__((__packed__)) SetMovingAverageConfiguration;
+
+typedef struct {
+	TFPMessageHeader header;
+} __attribute__((__packed__)) GetMovingAverageConfiguration;
+
+typedef struct {
+	TFPMessageHeader header;
+	uint16_t moving_average_length_humidity;
+	uint16_t moving_average_length_temperature;
+} __attribute__((__packed__)) GetMovingAverageConfiguration_Response;
 
 // Function prototypes
 BootloaderHandleMessageResponse set_heater_configuration(const SetHeaterConfiguration *data);
 BootloaderHandleMessageResponse get_heater_configuration(const GetHeaterConfiguration *data, GetHeaterConfiguration_Response *response);
+BootloaderHandleMessageResponse set_moving_average_configuration(const SetMovingAverageConfiguration *data);
+BootloaderHandleMessageResponse get_moving_average_configuration(const GetMovingAverageConfiguration *data, GetMovingAverageConfiguration_Response *response);
 
 // Callbacks
 bool handle_humidity_callback(void);

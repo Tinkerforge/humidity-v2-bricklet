@@ -24,7 +24,10 @@
 #include "bricklib2/utility/communication_callback.h"
 #include "bricklib2/protocols/tfp/tfp.h"
 #include "bricklib2/utility/callback_value.h"
+#include "bricklib2/utility/moving_average.h"
 #include "hdc1080.h"
+
+extern HDC1080 hdc1080;
 
 CallbackValue callback_value_humidity;
 CallbackValue callback_value_temperature;
@@ -39,13 +42,15 @@ BootloaderHandleMessageResponse handle_message(const void *message, void *respon
 		case FID_GET_TEMPERATURE_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration(message, response, &callback_value_temperature);
 		case FID_SET_HEATER_CONFIGURATION: return set_heater_configuration(message);
 		case FID_GET_HEATER_CONFIGURATION: return get_heater_configuration(message, response);
+		case FID_SET_MOVING_AVERAGE_CONFIGURATION: return set_moving_average_configuration(message);
+		case FID_GET_MOVING_AVERAGE_CONFIGURATION: return get_moving_average_configuration(message, response);
 		default: return HANDLE_MESSAGE_RESPONSE_NOT_SUPPORTED;
 	}
 }
 
 
 BootloaderHandleMessageResponse set_heater_configuration(const SetHeaterConfiguration *data) {
-	if(data->heater_config > 1) {
+	if(data->heater_config > HUMIDITY_V2_HEATER_CONFIG_ENABLED) {
 		return HANDLE_MESSAGE_RESPONSE_INVALID_PARAMETER;
 	}
 
@@ -60,6 +65,27 @@ BootloaderHandleMessageResponse get_heater_configuration(const GetHeaterConfigur
 	return HANDLE_MESSAGE_RESPONSE_NEW_MESSAGE;
 }
 
+BootloaderHandleMessageResponse set_moving_average_configuration(const SetMovingAverageConfiguration *data) {
+	if((data->moving_average_length_humidity    > MOVING_AVERAGE_MAX_LENGTH) ||
+	   (data->moving_average_length_temperature > MOVING_AVERAGE_MAX_LENGTH) ||
+	   (data->moving_average_length_humidity    < 1) ||
+	   (data->moving_average_length_temperature < 1)) {
+		return HANDLE_MESSAGE_RESPONSE_INVALID_PARAMETER;
+	}
+
+	moving_average_new_length(&hdc1080.moving_average_humidity,    data->moving_average_length_humidity);
+	moving_average_new_length(&hdc1080.moving_average_temperature, data->moving_average_length_temperature);
+
+	return HANDLE_MESSAGE_RESPONSE_EMPTY;
+}
+
+BootloaderHandleMessageResponse get_moving_average_configuration(const GetMovingAverageConfiguration *data, GetMovingAverageConfiguration_Response *response) {
+	response->header.length                     = sizeof(GetMovingAverageConfiguration_Response);
+	response->moving_average_length_humidity    = hdc1080.moving_average_humidity.length;
+	response->moving_average_length_temperature = hdc1080.moving_average_temperature.length;
+
+	return HANDLE_MESSAGE_RESPONSE_NEW_MESSAGE;
+}
 
 bool handle_humidity_callback(void) {
 	return handle_callback_value_callback(&callback_value_humidity, FID_CALLBACK_HUMIDITY);
@@ -74,7 +100,7 @@ void communication_tick(void) {
 }
 
 void communication_init(void) {
-	callback_value_init(&callback_value_humidity, hdc1080_get_humidity);
+	callback_value_init(&callback_value_humidity,    hdc1080_get_humidity);
 	callback_value_init(&callback_value_temperature, hdc1080_get_temperature);
 	communication_callback_init();
 }

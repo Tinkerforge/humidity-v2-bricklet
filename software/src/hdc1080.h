@@ -25,6 +25,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+
+#include "bricklib2/utility/moving_average.h"
+
 #define HDC1080_REG_TEMPERATURE     0x00
 #define HDC1080_REG_HUMIDITY        0x01
 #define HDC1080_REG_CONFIGURATION   0x02
@@ -100,6 +103,9 @@ typedef struct {
 
 	uint32_t last_acquisition_trigger;
 	uint32_t powerup_wait_time;
+
+	MovingAverage moving_average_temperature;
+	MovingAverage moving_average_humidity;
 } HDC1080;
 
 void hdc1080_init(HDC1080 *hdc1080);

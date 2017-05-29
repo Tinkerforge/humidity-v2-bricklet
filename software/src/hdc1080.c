@@ -161,6 +161,7 @@ void hdc1080_init_i2c(HDC1080 *hdc1080) {
 }
 
 void hdc1080_handle_state(HDC1080 *hdc1080) {
+	static bool first_value = true;
 	const uint32_t status = XMC_I2C_CH_GetStatusFlag(HDC1080_I2C);
 
 	switch(hdc1080->state) {
@@ -200,10 +201,11 @@ void hdc1080_handle_state(HDC1080 *hdc1080) {
 					break;
 				}
 
+				uint16_t temp_hum[2];
+
 				uint16_t *data = NULL;
 				switch(hdc1080->current_read_reg) {
-					case HDC1080_REG_TEMPERATURE:     data = &hdc1080->value.temperature;   break;
-					case HDC1080_REG_HUMIDITY:        data = &hdc1080->value.humidity;      break;
+					case HDC1080_REG_TEMPERATURE:     data = temp_hum;                      break;
 					case HDC1080_REG_CONFIGURATION:   data = &hdc1080->configuration.reg;   break;
 					case HDC1080_REG_SERIAL_ID_LOW:   data = &hdc1080->ids.serial_id[0];    break;
 					case HDC1080_REG_SERIAL_ID_MID:   data = &hdc1080->ids.serial_id[1];    break;
@@ -231,6 +233,23 @@ void hdc1080_handle_state(HDC1080 *hdc1080) {
 						high = true;
 					}
 					data_index++;
+				}
+
+				// Special handling for temperature and humidity measurement:
+				if(hdc1080->current_read_reg == HDC1080_REG_TEMPERATURE) {
+					if(first_value) {
+						// If this is the first real measurement we reinitialize the moving average.
+						// Otherwise it would slowly ramp up from 0 to the real value for the user.
+						moving_average_init(&hdc1080->moving_average_temperature, temp_hum[0], hdc1080->moving_average_temperature.length);
+						moving_average_init(&hdc1080->moving_average_humidity,    temp_hum[1], hdc1080->moving_average_humidity.length);
+						hdc1080->value.temperature = temp_hum[0];
+						hdc1080->value.humidity    = temp_hum[1];
+						first_value = false;
+					} else {
+						// Put temperature and humidity measurements through moving average filter.
+						hdc1080->value.temperature = moving_average_handle_value(&hdc1080->moving_average_temperature, temp_hum[0]);
+						hdc1080->value.humidity    = moving_average_handle_value(&hdc1080->moving_average_humidity,    temp_hum[1]);
+					}
 				}
 
 				hdc1080_change_state(hdc1080, HDC1080_STATE_IDLE);
@@ -297,9 +316,12 @@ void hdc1080_init(HDC1080 *hdc1080) {
 	hdc1080->configuration.bit.tres = HDC1080_RESOLUTION_T_14BIT; // temperature measurement 14 bit
 	hdc1080->configuration.bit.hres = HDC1080_RESOLUTION_H_14BIT; // humidity measurement 14 bit
 
-	hdc1080->write_config = true;
-	hdc1080->update_ids = 1;
+	hdc1080->write_config      = true;
+	hdc1080->update_ids        = 1;
 	hdc1080->powerup_wait_time = system_timer_get_ms();
+
+	moving_average_init(&hdc1080->moving_average_temperature, 0, MOVING_AVERAGE_DEFAULT_LENGTH);
+	moving_average_init(&hdc1080->moving_average_humidity,    0, MOVING_AVERAGE_DEFAULT_LENGTH);
 }
 
 void hdc1080_tick(HDC1080 *hdc1080) {
@@ -355,8 +377,9 @@ void hdc1080_tick(HDC1080 *hdc1080) {
 	}
 }
 
-extern HDC1080 hdc1080;
 
+
+extern HDC1080 hdc1080;
 uint8_t hdc1080_get_heater_config(void) {
 	return hdc1080.configuration.bit.heat;
 }
