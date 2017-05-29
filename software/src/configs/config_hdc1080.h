@@ -24,7 +24,7 @@
 
 #include "xmc_gpio.h"
 
-#define HDC1080_I2C_BAUDRATE         400000
+#define HDC1080_I2C_BAUDRATE         100000
 
 #define HDC1080_I2C_ADDRESS          0b1000000
 #define HDC1080_I2C_CHANNEL          USIC0_CH1
