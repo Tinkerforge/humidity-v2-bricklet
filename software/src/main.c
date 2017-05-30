@@ -26,16 +26,12 @@
 
 #include "bricklib2/bootloader/bootloader.h"
 #include "bricklib2/hal/system_timer/system_timer.h"
-#include "bricklib2/hal/uartbb/uartbb.h"
 #include "communication.h"
 #include "hdc1080.h"
 
 HDC1080 hdc1080;
 
 int main(void) {
-	uartbb_init();
-	uartbb_puts("Start Humidity V2 Bricklet\n\r");
-
 	communication_init();
 	hdc1080_init(&hdc1080);
 
