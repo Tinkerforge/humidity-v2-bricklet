@@ -25,7 +25,7 @@ class Example
 		h.HumidityCallback += HumidityCB;
 
 		// Set period for humidity callback to 1s (1000ms) without a threshold
-		h.SetHumidityCallbackConfiguation(1000, false, 'x', 0, 0);
+		h.SetHumidityCallbackConfiguration(1000, false, 'x', 0, 0);
 
 		Console.WriteLine("Press enter to exit");
 		Console.ReadLine();

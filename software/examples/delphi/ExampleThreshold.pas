@@ -48,7 +48,7 @@ begin
 
   { Configure threshold for humidity "outside of 30 to 60 %RH" (unit is %RH/100)
     with a debounce period of 10s (10000ms) }
-  h.SetHumidityCallbackConfiguation(10000, false, 'o', 30*100, 60*100);
+  h.SetHumidityCallbackConfiguration(10000, false, 'o', 30*100, 60*100);
 
   WriteLn('Press key to exit');
   ReadLn;
