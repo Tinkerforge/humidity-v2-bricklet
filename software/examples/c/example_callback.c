@@ -37,7 +37,7 @@ int main(void) {
 	                              NULL);
 
 	// Set period for humidity callback to 1s (1000ms) without a threshold
-	humidity_v2_set_humidity_callback_configuation(&h, 1000, false, 'x', 0, 0);
+	humidity_v2_set_humidity_callback_configuration(&h, 1000, false, 'x', 0, 0);
 
 	printf("Press key to exit\n");
 	getchar();

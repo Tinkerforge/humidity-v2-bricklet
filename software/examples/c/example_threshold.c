@@ -39,7 +39,7 @@ int main(void) {
 
 	// Configure threshold for humidity "outside of 30 to 60 %RH" (unit is %RH/100)
 	// with a debounce period of 10s (10000ms)
-	humidity_v2_set_humidity_callback_configuation(&h, 10000, false, 'o', 30*100, 60*100);
+	humidity_v2_set_humidity_callback_configuration(&h, 10000, false, 'o', 30*100, 60*100);
 
 	printf("Press key to exit\n");
 	getchar();
