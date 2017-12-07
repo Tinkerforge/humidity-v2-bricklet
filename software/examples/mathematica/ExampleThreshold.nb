@@ -1,0 +1,43 @@
+Notebook[{
+ Cell[
+  BoxData[{
+   RowBox[{"Needs", "[", "\"\<NETLink`\>\"", "]"}],
+   RowBox[{"LoadNETAssembly", "[", RowBox[{"\"\<Tinkerforge\>\"", ",", RowBox[{RowBox[{"NotebookDirectory", "[", "]"}], "<>", "\"\<../../..\>\""}]}], "]"}]
+  }], "Input"
+ ],
+ Cell[
+  BoxData[{
+   RowBox[{"host", "=", "\"\<localhost\>\""}],
+   RowBox[{"port", "=", "4223"}],
+   RowBox[{"uid", "=", "\"\<XYZ\>\"", RowBox[{"(*", "Change XYZ to the UID of your Humidity Bricklet 2.0", "*)"}]}],
+   RowBox[{"
+"}],
+   RowBox[{"(*", "Create IPConnection and device object", "*)"}],
+   RowBox[{"ipcon", "=", RowBox[{"NETNew", "[", "\"\<Tinkerforge.IPConnection\>\"", "]"}]}],
+   RowBox[{"h", "=", RowBox[{"NETNew", "[", RowBox[{"\"\<Tinkerforge.BrickletHumidityV2\>\"", ",", "uid", ",", "ipcon"}], "]"}]}],
+   RowBox[{"ipcon", "@", RowBox[{"Connect", "[", RowBox[{"host", ",", "port"}], "]"}]}],
+   RowBox[{"
+"}],
+   RowBox[{"(*", "Callback function for humidity callback (parameter has unit %RH/100)", "*)"}],
+   RowBox[{RowBox[{"HumidityCB", "[", RowBox[{"sender_", ",", "humidity_"}], "]"}], ":=", "\[IndentingNewLine]", RowBox[{"Module", "[", RowBox[{RowBox[{"{", "}"}], ",", RowBox[{"\[IndentingNewLine]", RowBox[{"Print", "[", RowBox[{"\"\<Humidity: \>\"", "<>", RowBox[{"ToString", "[", RowBox[{"N", "[", RowBox[{"Quantity", "[", RowBox[{"humidity", ",", "\"\<%RH/100\>\""}], "]"}], "]"}], "]"}]}], "]"}], ";", "\[IndentingNewLine]", RowBox[{"Print", "[", "\"\<Recommended humiditiy for human comfort is 30 to 60 %RH.\>\"", "]"}], "\[IndentingNewLine]"}]}], "]"}]}],
+   RowBox[{"
+"}],
+   RowBox[{"AddEventHandler", "[", RowBox[{RowBox[{"h", "@", "HumidityCallback"}], ",", "HumidityCB"}], "]"}],
+   RowBox[{"
+"}],
+   RowBox[{"(*", "Configure threshold for humidity ", "\"\<outside of 30 to 60 %RH\>\"", " (unit is %RH/100)", "*)"}],
+   RowBox[{"(*", "with a debounce period of 10s (10000ms)", "*)"}],
+   RowBox[{"option", "=", "Tinkerforge`BrickletHumidityV2`THRESHOLDUOPTIONUOUTSIDE"}],
+   RowBox[{"h", "@", RowBox[{"SetHumidityCallbackConfiguration", "[", RowBox[{"10000", ",", "False", ",", "option", ",", RowBox[{"30", "*", "100"}], ",", RowBox[{"60", "*", "100"}]}], "]"}]}],
+   RowBox[{"
+"}],
+   RowBox[{"Input", "[", "\"\<Click OK to exit\>\"", "]"}],
+   RowBox[{"
+"}],
+   RowBox[{"(*", "Clean up", "*)"}],
+   RowBox[{"ipcon", "@", RowBox[{"Disconnect", "[", "]"}]}],
+   RowBox[{"ReleaseNETObject", "[", "h", "]"}],
+   RowBox[{"ReleaseNETObject", "[", "ipcon", "]"}]
+  }], "Input"
+ ]
+}]

@@ -1,0 +1,32 @@
+Needs["NETLink`"]
+LoadNETAssembly["Tinkerforge",NotebookDirectory[]<>"../../.."]
+
+host="localhost"
+port=4223
+uid="XYZ"(*Change XYZ to the UID of your Humidity Bricklet 2.0*)
+
+(*Create IPConnection and device object*)
+ipcon=NETNew["Tinkerforge.IPConnection"]
+h=NETNew["Tinkerforge.BrickletHumidityV2",uid,ipcon]
+ipcon@Connect[host,port]
+
+(*Callback function for humidity callback (parameter has unit %RH/100)*)
+HumidityCB[sender_,humidity_]:=
+ Module[{},
+  Print["Humidity: "<>ToString[N[Quantity[humidity,"%RH/100"]]]];
+  Print["Recommended humiditiy for human comfort is 30 to 60 %RH."]
+ ]
+
+AddEventHandler[h@HumidityCallback,HumidityCB]
+
+(*Configure threshold for humidity "outside of 30 to 60 %RH" (unit is %RH/100)*)
+(*with a debounce period of 10s (10000ms)*)
+option=Tinkerforge`BrickletHumidityV2`THRESHOLDUOPTIONUOUTSIDE
+h@SetHumidityCallbackConfiguration[10000,False,option,30*100,60*100]
+
+Input["Click OK to exit"]
+
+(*Clean up*)
+ipcon@Disconnect[]
+ReleaseNETObject[h]
+ReleaseNETObject[ipcon]
