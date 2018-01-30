@@ -41,7 +41,7 @@
 
                 ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
                     function (connectReason) {
-                        // Get current humidity (unit is %RH/100)
+                        // Get current humidity
                         h.getHumidity(
                             function (humidity) {
                                 textArea.value += 'Humidity: ' + humidity/100.0 + ' %RH\n';

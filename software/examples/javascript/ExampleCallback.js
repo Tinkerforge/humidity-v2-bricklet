@@ -23,7 +23,7 @@ ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
 
 // Register humidity callback
 h.on(Tinkerforge.BrickletHumidityV2.CALLBACK_HUMIDITY,
-    // Callback function for humidity callback (parameter has unit %RH/100)
+    // Callback function for humidity callback
     function (humidity) {
         console.log('Humidity: ' + humidity/100.0 + ' %RH');
     }

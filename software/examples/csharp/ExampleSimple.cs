@@ -15,7 +15,7 @@ class Example
 		ipcon.Connect(HOST, PORT); // Connect to brickd
 		// Don't use device before ipcon is connected
 
-		// Get current humidity (unit is %RH/100)
+		// Get current humidity
 		int humidity = h.GetHumidity();
 		Console.WriteLine("Humidity: " + humidity/100.0 + " %RH");
 

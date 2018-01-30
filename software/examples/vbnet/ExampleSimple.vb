@@ -13,7 +13,7 @@ Module ExampleSimple
         ipcon.Connect(HOST, PORT) ' Connect to brickd
         ' Don't use device before ipcon is connected
 
-        ' Get current humidity (unit is %RH/100)
+        ' Get current humidity
         Dim humidity As Integer = h.GetHumidity()
         Console.WriteLine("Humidity: " + (humidity/100.0).ToString() + " %RH")
 

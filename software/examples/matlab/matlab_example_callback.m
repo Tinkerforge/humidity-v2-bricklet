@@ -22,7 +22,7 @@ function matlab_example_callback()
     ipcon.disconnect();
 end
 
-% Callback function for humidity callback (parameter has unit %RH/100)
+% Callback function for humidity callback
 function cb_humidity(e)
     fprintf('Humidity: %g %%RH\n', e.humidity/100.0);
 end

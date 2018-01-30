@@ -48,7 +48,7 @@
 
                 // Register humidity callback
                 h.on(Tinkerforge.BrickletHumidityV2.CALLBACK_HUMIDITY,
-                    // Callback function for humidity callback (parameter has unit %RH/100)
+                    // Callback function for humidity callback
                     function (humidity) {
                         textArea.value += 'Humidity: ' + humidity/100.0 + ' %RH\n';
                         textArea.scrollTop = textArea.scrollHeight;

@@ -10,7 +10,7 @@ ipcon=NETNew["Tinkerforge.IPConnection"]
 h=NETNew["Tinkerforge.BrickletHumidityV2",uid,ipcon]
 ipcon@Connect[host,port]
 
-(*Callback function for humidity callback (parameter has unit %RH/100)*)
+(*Callback function for humidity callback*)
 HumidityCB[sender_,humidity_]:=
  Print["Humidity: "<>ToString[N[Quantity[humidity,"%RH/100"]]]]
 AddEventHandler[h@HumidityCallback,HumidityCB]

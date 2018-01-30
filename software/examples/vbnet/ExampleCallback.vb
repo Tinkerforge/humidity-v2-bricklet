@@ -6,7 +6,7 @@ Module ExampleCallback
     Const PORT As Integer = 4223
     Const UID As String = "XYZ" ' Change XYZ to the UID of your Humidity Bricklet 2.0
 
-    ' Callback subroutine for humidity callback (parameter has unit %RH/100)
+    ' Callback subroutine for humidity callback
     Sub HumidityCB(ByVal sender As BrickletHumidityV2, ByVal humidity As Integer)
         Console.WriteLine("Humidity: " + (humidity/100.0).ToString() + " %RH")
     End Sub

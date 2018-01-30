@@ -17,7 +17,7 @@ public class ExampleThreshold {
 		ipcon.connect(HOST, PORT); // Connect to brickd
 		// Don't use device before ipcon is connected
 
-		// Add humidity listener (parameter has unit %RH/100)
+		// Add humidity listener
 		h.addHumidityListener(new BrickletHumidityV2.HumidityListener() {
 			public void humidity(int humidity) {
 				System.out.println("Humidity: " + humidity/100.0 + " %RH");
@@ -25,7 +25,7 @@ public class ExampleThreshold {
 			}
 		});
 
-		// Configure threshold for humidity "outside of 30 to 60 %RH" (unit is %RH/100)
+		// Configure threshold for humidity "outside of 30 to 60 %RH"
 		// with a debounce period of 10s (10000ms)
 		h.setHumidityCallbackConfiguration(10000, false, 'o', 30*100, 60*100);
 

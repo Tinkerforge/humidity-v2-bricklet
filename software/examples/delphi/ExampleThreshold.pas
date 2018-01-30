@@ -24,7 +24,7 @@ const
 var
   e: TExample;
 
-{ Callback procedure for humidity callback (parameter has unit %RH/100) }
+{ Callback procedure for humidity callback }
 procedure TExample.HumidityCB(sender: TBrickletHumidityV2; const humidity: word);
 begin
   WriteLn(Format('Humidity: %f %%RH', [humidity/100.0]));
@@ -46,7 +46,7 @@ begin
   { Register humidity callback to procedure HumidityCB }
   h.OnHumidity := {$ifdef FPC}@{$endif}HumidityCB;
 
-  { Configure threshold for humidity "outside of 30 to 60 %RH" (unit is %RH/100)
+  { Configure threshold for humidity "outside of 30 to 60 %RH"
     with a debounce period of 10s (10000ms) }
   h.SetHumidityCallbackConfiguration(10000, false, 'o', 30*100, 60*100);
 

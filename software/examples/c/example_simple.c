@@ -23,7 +23,7 @@ int main(void) {
 	}
 	// Don't use device before ipcon is connected
 
-	// Get current humidity (unit is %RH/100)
+	// Get current humidity
 	uint16_t humidity;
 	if(humidity_v2_get_humidity(&h, &humidity) < 0) {
 		fprintf(stderr, "Could not get humidity, probably timeout\n");

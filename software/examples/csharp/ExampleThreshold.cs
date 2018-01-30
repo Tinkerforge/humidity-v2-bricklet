@@ -7,7 +7,7 @@ class Example
 	private static int PORT = 4223;
 	private static string UID = "XYZ"; // Change XYZ to the UID of your Humidity Bricklet 2.0
 
-	// Callback function for humidity callback (parameter has unit %RH/100)
+	// Callback function for humidity callback
 	static void HumidityCB(BrickletHumidityV2 sender, int humidity)
 	{
 		Console.WriteLine("Humidity: " + humidity/100.0 + " %RH");
@@ -25,7 +25,7 @@ class Example
 		// Register humidity callback to function HumidityCB
 		h.HumidityCallback += HumidityCB;
 
-		// Configure threshold for humidity "outside of 30 to 60 %RH" (unit is %RH/100)
+		// Configure threshold for humidity "outside of 30 to 60 %RH"
 		// with a debounce period of 10s (10000ms)
 		h.SetHumidityCallbackConfiguration(10000, false, 'o', 30*100, 60*100);
 

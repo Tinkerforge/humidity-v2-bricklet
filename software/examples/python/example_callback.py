@@ -8,7 +8,7 @@ UID = "XYZ" # Change XYZ to the UID of your Humidity Bricklet 2.0
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_humidity_v2 import BrickletHumidityV2
 
-# Callback function for humidity callback (parameter has unit %RH/100)
+# Callback function for humidity callback
 def cb_humidity(humidity):
     print("Humidity: " + str(humidity/100.0) + " %RH")
 

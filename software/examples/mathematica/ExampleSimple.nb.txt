@@ -10,7 +10,7 @@ ipcon=NETNew["Tinkerforge.IPConnection"]
 h=NETNew["Tinkerforge.BrickletHumidityV2",uid,ipcon]
 ipcon@Connect[host,port]
 
-(*Get current humidity (unit is %RH/100)*)
+(*Get current humidity*)
 Print["Humidity: "<>ToString[N[Quantity[h@GetHumidity[],"%RH/100"]]]]
 
 (*Clean up*)

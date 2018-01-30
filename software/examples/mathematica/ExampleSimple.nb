@@ -18,7 +18,7 @@ Notebook[{
    RowBox[{"ipcon", "@", RowBox[{"Connect", "[", RowBox[{"host", ",", "port"}], "]"}]}],
    RowBox[{"
 "}],
-   RowBox[{"(*", "Get current humidity (unit is %RH/100)", "*)"}],
+   RowBox[{"(*", "Get current humidity", "*)"}],
    RowBox[{"Print", "[", RowBox[{"\"\<Humidity: \>\"", "<>", RowBox[{"ToString", "[", RowBox[{"N", "[", RowBox[{"Quantity", "[", RowBox[{RowBox[{"h", "@", RowBox[{"GetHumidity", "[", "]"}]}], ",", "\"\<%RH/100\>\""}], "]"}], "]"}], "]"}]}], "]"}],
    RowBox[{"
 "}],

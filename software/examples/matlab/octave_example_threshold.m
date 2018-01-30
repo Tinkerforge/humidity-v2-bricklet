@@ -14,7 +14,7 @@ function octave_example_threshold()
     % Register humidity callback to function cb_humidity
     h.addHumidityCallback(@cb_humidity);
 
-    % Configure threshold for humidity "outside of 30 to 60 %RH" (unit is %RH/100)
+    % Configure threshold for humidity "outside of 30 to 60 %RH"
     % with a debounce period of 10s (10000ms)
     h.setHumidityCallbackConfiguration(10000, false, "o", 30*100, 60*100);
 
@@ -22,7 +22,7 @@ function octave_example_threshold()
     ipcon.disconnect();
 end
 
-% Callback function for humidity callback (parameter has unit %RH/100)
+% Callback function for humidity callback
 function cb_humidity(e)
     fprintf("Humidity: %g %%RH\n", e.humidity/100.0);
     fprintf("Recommended humiditiy for human comfort is 30 to 60 %%RH.\n");
