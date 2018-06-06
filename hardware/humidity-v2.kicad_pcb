@@ -1,4 +1,4 @@
-(kicad_pcb (version 4) (host pcbnew 4.0.7-e2-6376~58~ubuntu17.04.1)
+(kicad_pcb (version 4) (host pcbnew 4.0.7-e2-6376~61~ubuntu18.04.1)
 
   (general
     (links 45)
@@ -75,8 +75,9 @@
     (pad_size 0.8001 0.8001)
     (pad_drill 0.6)
     (pad_to_mask_clearance 0)
-    (aux_axis_origin 0 0)
-    (visible_elements FFFF7F7F)
+    (aux_axis_origin 140.1 128.5)
+    (grid_origin 140.1 128.5)
+    (visible_elements FFFFBF7F)
     (pcbplotparams
       (layerselection 0x00010_00000000)
       (usegerberextensions false)
@@ -6114,7 +6115,7 @@
   )
 
   (module kicad-libraries:WEEE_7mm (layer B.Cu) (tedit 0) (tstamp 590C160B)
-    (at 147.6 135.3 270)
+    (at 147.6 135.5 270)
     (fp_text reference G*** (at 0 0 270) (layer B.SilkS) hide
       (effects (font (thickness 0.3)) (justify mirror))
     )
@@ -6239,7 +6240,7 @@
   )
 
   (module kicad-libraries:CE_5mm (layer B.Cu) (tedit 0) (tstamp 590C4852)
-    (at 147.6 146.7 270)
+    (at 147.6 147 270)
     (fp_text reference VAL (at 0 0 270) (layer B.SilkS) hide
       (effects (font (size 1.143 1.143) (thickness 0.1778)) (justify mirror))
     )
