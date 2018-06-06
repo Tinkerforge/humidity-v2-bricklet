@@ -365,9 +365,6 @@ void hdc1080_tick(HDC1080 *hdc1080) {
 			return;
 		}
 
-		hdc1080_get_humidity();
-		hdc1080_get_temperature();
-
 		hdc1080->current_read_reg = HDC1080_REG_TEMPERATURE;
 		hdc1080->current_read_length = 2;
 		hdc1080->current_write_reg = HDC1080_REG_TEMPERATURE;
