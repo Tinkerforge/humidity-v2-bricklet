@@ -23,23 +23,28 @@
 
 #include "bricklib2/utility/communication_callback.h"
 #include "bricklib2/protocols/tfp/tfp.h"
-#include "bricklib2/utility/callback_value.h"
+#define CALLBACK_VALUE_TYPE CALLBACK_VALUE_TYPE_UINT16
+#include "bricklib2/utility/callback_value.h" // for humidity
+#undef CALLBACK_VALUE_TYPE
+#define CALLBACK_VALUE_TYPE CALLBACK_VALUE_TYPE_INT16
+#include "bricklib2/utility/callback_value.h" // for temperature
+#undef CALLBACK_VALUE_TYPE
 #include "bricklib2/utility/moving_average.h"
 #include "hdc1080.h"
 
 extern HDC1080 hdc1080;
 
-CallbackValue callback_value_humidity;
-CallbackValue callback_value_temperature;
+CallbackValue_uint16_t callback_value_humidity;
+CallbackValue_int16_t callback_value_temperature;
 
 BootloaderHandleMessageResponse handle_message(const void *message, void *response) {
 	switch(tfp_get_fid_from_message(message)) {
-		case FID_GET_HUMIDITY: return get_callback_value(message, response, &callback_value_humidity);
-		case FID_SET_HUMIDITY_CALLBACK_CONFIGURATION: return set_callback_value_callback_configuration(message, &callback_value_humidity);
-		case FID_GET_HUMIDITY_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration(message, response, &callback_value_humidity);
-		case FID_GET_TEMPERATURE: return get_callback_value(message, response, &callback_value_temperature);
-		case FID_SET_TEMPERATURE_CALLBACK_CONFIGURATION: return set_callback_value_callback_configuration(message, &callback_value_temperature);
-		case FID_GET_TEMPERATURE_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration(message, response, &callback_value_temperature);
+		case FID_GET_HUMIDITY: return get_callback_value_uint16_t(message, response, &callback_value_humidity);
+		case FID_SET_HUMIDITY_CALLBACK_CONFIGURATION: return set_callback_value_callback_configuration_uint16_t(message, &callback_value_humidity);
+		case FID_GET_HUMIDITY_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration_uint16_t(message, response, &callback_value_humidity);
+		case FID_GET_TEMPERATURE: return get_callback_value_int16_t(message, response, &callback_value_temperature);
+		case FID_SET_TEMPERATURE_CALLBACK_CONFIGURATION: return set_callback_value_callback_configuration_int16_t(message, &callback_value_temperature);
+		case FID_GET_TEMPERATURE_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration_int16_t(message, response, &callback_value_temperature);
 		case FID_SET_HEATER_CONFIGURATION: return set_heater_configuration(message);
 		case FID_GET_HEATER_CONFIGURATION: return get_heater_configuration(message, response);
 		case FID_SET_MOVING_AVERAGE_CONFIGURATION: return set_moving_average_configuration(message);
@@ -47,7 +52,6 @@ BootloaderHandleMessageResponse handle_message(const void *message, void *respon
 		default: return HANDLE_MESSAGE_RESPONSE_NOT_SUPPORTED;
 	}
 }
-
 
 BootloaderHandleMessageResponse set_heater_configuration(const SetHeaterConfiguration *data) {
 	if(data->heater_config > HUMIDITY_V2_HEATER_CONFIG_ENABLED) {
@@ -88,11 +92,11 @@ BootloaderHandleMessageResponse get_moving_average_configuration(const GetMoving
 }
 
 bool handle_humidity_callback(void) {
-	return handle_callback_value_callback(&callback_value_humidity, FID_CALLBACK_HUMIDITY);
+	return handle_callback_value_callback_uint16_t(&callback_value_humidity, FID_CALLBACK_HUMIDITY);
 }
 
 bool handle_temperature_callback(void) {
-	return handle_callback_value_callback(&callback_value_temperature, FID_CALLBACK_TEMPERATURE);
+	return handle_callback_value_callback_int16_t(&callback_value_temperature, FID_CALLBACK_TEMPERATURE);
 }
 
 void communication_tick(void) {
@@ -100,7 +104,7 @@ void communication_tick(void) {
 }
 
 void communication_init(void) {
-	callback_value_init(&callback_value_humidity,    hdc1080_get_humidity);
-	callback_value_init(&callback_value_temperature, hdc1080_get_temperature);
+	callback_value_init_uint16_t(&callback_value_humidity, hdc1080_get_humidity);
+	callback_value_init_int16_t(&callback_value_temperature, hdc1080_get_temperature);
 	communication_callback_init();
 }

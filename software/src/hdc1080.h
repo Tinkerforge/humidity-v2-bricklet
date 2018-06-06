@@ -113,7 +113,7 @@ void hdc1080_tick(HDC1080 *hdc1080);
 
 void hdc1080_set_heater_config(uint8_t heater_config);
 uint8_t hdc1080_get_heater_config(void);
-int16_t hdc1080_get_humidity(void);
+uint16_t hdc1080_get_humidity(void);
 int16_t hdc1080_get_temperature(void);
 
 #endif

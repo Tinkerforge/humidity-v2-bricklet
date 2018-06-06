@@ -58,7 +58,6 @@ void communication_init(void);
 #define FID_CALLBACK_HUMIDITY 4
 #define FID_CALLBACK_TEMPERATURE 8
 
-
 typedef struct {
 	TFPMessageHeader header;
 	uint8_t heater_config;
@@ -104,6 +103,5 @@ bool handle_temperature_callback(void);
 #define COMMUNICATION_CALLBACK_LIST_INIT \
 	handle_humidity_callback, \
 	handle_temperature_callback, \
-
 
 #endif

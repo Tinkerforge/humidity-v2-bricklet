@@ -130,7 +130,6 @@ void hdc1080_init_i2c(HDC1080 *hdc1080) {
 
 	WR_REG(HDC1080_I2C->FMR, USIC_CH_FMR_MTDV_Msk, USIC_CH_FMR_MTDV_Pos, 2);
 
-
 	const XMC_I2C_CH_CONFIG_t master_channel_config = {
 		.baudrate = HDC1080_I2C_BAUDRATE,
 		.address  = 0
@@ -374,9 +373,8 @@ void hdc1080_tick(HDC1080 *hdc1080) {
 	}
 }
 
-
-
 extern HDC1080 hdc1080;
+
 uint8_t hdc1080_get_heater_config(void) {
 	return hdc1080.configuration.bit.heat;
 }
@@ -386,7 +384,7 @@ void hdc1080_set_heater_config(uint8_t heater_config) {
 	hdc1080.write_config = true;
 }
 
-int16_t hdc1080_get_humidity(void) {
+uint16_t hdc1080_get_humidity(void) {
 	return hdc1080.value.humidity*10000/(1 << 16);
 }
 
