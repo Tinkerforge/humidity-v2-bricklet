@@ -1,5 +1,5 @@
 2017-11-24: 2.0.0 (82134dd)
 - Initial version
 
-<unknown>: 2.0.1 (<unknown>)
+2018-06-07: 2.0.1 (eec385b)
 - Fix wrong length for get-humidity and get-temperature packets (through bricklib2)
