@@ -6634,7 +6634,7 @@
   (gr_text 2.0 (at 150.1 134.9 90) (layer F.SilkS)
     (effects (font (size 0.7 0.7) (thickness 0.15)))
   )
-  (gr_text status (at 147.6 129.5) (layer F.SilkS)
+  (gr_text Status (at 147.6 129.5) (layer F.SilkS)
     (effects (font (size 0.7 0.7) (thickness 0.15)))
   )
   (gr_text Humidity (at 147.4 135.6 90) (layer F.SilkS)
