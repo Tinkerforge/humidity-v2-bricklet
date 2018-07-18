@@ -25,5 +25,5 @@ end
 % Callback function for humidity callback
 function cb_humidity(e)
     fprintf("Humidity: %g %%RH\n", e.humidity/100.0);
-    fprintf("Recommended humiditiy for human comfort is 30 to 60 %%RH.\n");
+    fprintf("Recommended humidity for human comfort is 30 to 60 %%RH.\n");
 end

@@ -5,7 +5,7 @@ uid=XYZ # Change XYZ to the UID of your Humidity Bricklet 2.0
 
 # Handle incoming humidity callbacks
 tinkerforge dispatch humidity-v2-bricklet $uid humidity\
- --execute "echo Humidity: {humidity}/100 %RH. Recommended humiditiy for human comfort is 30 to 60 %RH." &
+ --execute "echo Humidity: {humidity}/100 %RH. Recommended humidity for human comfort is 30 to 60 %RH." &
 
 # Configure threshold for humidity "outside of 30 to 60 %RH"
 # with a debounce period of 10s (10000ms)

@@ -14,7 +14,7 @@ ipcon@Connect[host,port]
 HumidityCB[sender_,humidity_]:=
  Module[{},
   Print["Humidity: "<>ToString[N[Quantity[humidity,"%RH/100"]]]];
-  Print["Recommended humiditiy for human comfort is 30 to 60 %RH."]
+  Print["Recommended humidity for human comfort is 30 to 60 %RH."]
  ]
 
 AddEventHandler[h@HumidityCallback,HumidityCB]

@@ -11,7 +11,7 @@ class Example
 	static void HumidityCB(BrickletHumidityV2 sender, int humidity)
 	{
 		Console.WriteLine("Humidity: " + humidity/100.0 + " %RH");
-		Console.WriteLine("Recommended humiditiy for human comfort is 30 to 60 %RH.");
+		Console.WriteLine("Recommended humidity for human comfort is 30 to 60 %RH.");
 	}
 
 	static void Main()

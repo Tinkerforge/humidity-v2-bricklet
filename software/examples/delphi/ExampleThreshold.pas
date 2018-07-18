@@ -28,7 +28,7 @@ var
 procedure TExample.HumidityCB(sender: TBrickletHumidityV2; const humidity: word);
 begin
   WriteLn(Format('Humidity: %f %%RH', [humidity/100.0]));
-  WriteLn('Recommended humiditiy for human comfort is 30 to 60 %RH.');
+  WriteLn('Recommended humidity for human comfort is 30 to 60 %RH.');
 end;
 
 procedure TExample.Execute;

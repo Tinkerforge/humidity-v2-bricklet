@@ -11,7 +11,7 @@ from tinkerforge.bricklet_humidity_v2 import BrickletHumidityV2
 # Callback function for humidity callback
 def cb_humidity(humidity):
     print("Humidity: " + str(humidity/100.0) + " %RH")
-    print("Recommended humiditiy for human comfort is 30 to 60 %RH.")
+    print("Recommended humidity for human comfort is 30 to 60 %RH.")
 
 if __name__ == "__main__":
     ipcon = IPConnection() # Create IP connection

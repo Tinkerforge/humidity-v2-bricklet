@@ -21,7 +21,7 @@ public class ExampleThreshold {
 		h.addHumidityListener(new BrickletHumidityV2.HumidityListener() {
 			public void humidity(int humidity) {
 				System.out.println("Humidity: " + humidity/100.0 + " %RH");
-				System.out.println("Recommended humiditiy for human comfort is 30 to 60 %RH.");
+				System.out.println("Recommended humidity for human comfort is 30 to 60 %RH.");
 			}
 		});
 

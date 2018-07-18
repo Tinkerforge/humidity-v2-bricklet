@@ -27,7 +27,7 @@ h.on(Tinkerforge.BrickletHumidityV2.CALLBACK_HUMIDITY,
     // Callback function for humidity callback
     function (humidity) {
         console.log('Humidity: ' + humidity/100.0 + ' %RH');
-        console.log('Recommended humiditiy for human comfort is 30 to 60 %RH.');
+        console.log('Recommended humidity for human comfort is 30 to 60 %RH.');
     }
 );
 

@@ -19,7 +19,7 @@ ipcon.connect HOST, PORT # Connect to brickd
 # Register humidity callback
 h.register_callback(BrickletHumidityV2::CALLBACK_HUMIDITY) do |humidity|
   puts "Humidity: #{humidity/100.0} %RH"
-  puts 'Recommended humiditiy for human comfort is 30 to 60 %RH.'
+  puts 'Recommended humidity for human comfort is 30 to 60 %RH.'
 end
 
 # Configure threshold for humidity "outside of 30 to 60 %RH"
