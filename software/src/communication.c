@@ -1,5 +1,5 @@
 /* humidity-v2-bricklet
- * Copyright (C) 2017 Olaf Lüke <olaf@tinkerforge.com>
+ * Copyright (C) 2017-2018 Olaf Lüke <olaf@tinkerforge.com>
  *
  * communication.c: TFP protocol message handling
  *
@@ -49,6 +49,8 @@ BootloaderHandleMessageResponse handle_message(const void *message, void *respon
 		case FID_GET_HEATER_CONFIGURATION: return get_heater_configuration(message, response);
 		case FID_SET_MOVING_AVERAGE_CONFIGURATION: return set_moving_average_configuration(message);
 		case FID_GET_MOVING_AVERAGE_CONFIGURATION: return get_moving_average_configuration(message, response);
+		case FID_SET_SAMPLES_PER_SECOND: return set_samples_per_second(message);
+		case FID_GET_SAMPLES_PER_SECOND: return get_samples_per_second(message, response);
 		default: return HANDLE_MESSAGE_RESPONSE_NOT_SUPPORTED;
 	}
 }
@@ -89,6 +91,22 @@ BootloaderHandleMessageResponse get_moving_average_configuration(const GetMoving
 	response->moving_average_length_temperature = hdc1080.moving_average_temperature.length;
 
 	return HANDLE_MESSAGE_RESPONSE_NEW_MESSAGE;
+}
+
+BootloaderHandleMessageResponse set_samples_per_second(const SetSamplesPerSecond *data) {
+	if(data->sps > HUMIDITY_V2_SPS_01) {
+		return HANDLE_MESSAGE_RESPONSE_INVALID_PARAMETER;
+	}
+
+	hdc1080.sps = data->sps;
+
+	return HANDLE_MESSAGE_RESPONSE_EMPTY;
+}
+
+BootloaderHandleMessageResponse get_samples_per_second(const GetSamplesPerSecond *data, GetSamplesPerSecond_Response *response) {
+	response->sps = hdc1080.sps;
+
+	return HANDLE_MESSAGE_RESPONSE_EMPTY;
 }
 
 bool handle_humidity_callback(void) {

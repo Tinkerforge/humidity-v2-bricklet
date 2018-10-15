@@ -1,5 +1,5 @@
 /* humidity-v2-bricklet
- * Copyright (C) 2017 Olaf Lüke <olaf@tinkerforge.com>
+ * Copyright (C) 2017-2018 Olaf Lüke <olaf@tinkerforge.com>
  *
  * config.h: All configurations for Humidity V2 Bricklet
  *
@@ -31,13 +31,13 @@
 
 #define FIRMWARE_VERSION_MAJOR 2
 #define FIRMWARE_VERSION_MINOR 0
-#define FIRMWARE_VERSION_REVISION 2
+#define FIRMWARE_VERSION_REVISION 3
 
 #define MOVING_AVERAGE_TYPE      MOVING_AVERAGE_TYPE_UINT16
 #define MOVING_AVERAGE_SUM_TYPE  MOVING_AVERAGE_TYPE_UINT32
 
 #define MOVING_AVERAGE_MAX_LENGTH     1000
-#define MOVING_AVERAGE_DEFAULT_LENGTH 100
+#define MOVING_AVERAGE_DEFAULT_LENGTH 5
 
 #include "config_custom_bootloader.h"
 

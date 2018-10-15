@@ -106,6 +106,8 @@ typedef struct {
 
 	MovingAverage moving_average_temperature;
 	MovingAverage moving_average_humidity;
+
+	uint8_t sps;
 } HDC1080;
 
 void hdc1080_init(HDC1080 *hdc1080);

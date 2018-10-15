@@ -1,5 +1,5 @@
 /* humidity-v2-bricklet
- * Copyright (C) 2017 Olaf Lüke <olaf@tinkerforge.com>
+ * Copyright (C) 2017-2018 Olaf Lüke <olaf@tinkerforge.com>
  *
  * hdc1080.c: Driver for HDC1080 humidity sensor
  *
@@ -27,6 +27,8 @@
 #include "configs/config_hdc1080.h"
 #include "bricklib2/hal/system_timer/system_timer.h"
 
+#include "communication.h"
+
 #include "xmc_i2c.h"
 #include "xmc_gpio.h"
 #include "xmc_usic.h"
@@ -40,6 +42,15 @@ typedef enum XMC_I2C_CH_TDF {
 	XMC_I2C_CH_TDF_MASTER_RESTART      = 5 << 8,
 	XMC_I2C_CH_TDF_MASTER_STOP         = 6 << 8
 } XMC_I2C_CH_TDF_t;
+
+const uint32_t hdc1080_sps_to_ms[] = {
+	50,    // 50 ms    -> 20 SPS
+	100,   // 100 ms   -> 10 SPS
+	200,   // 200 ms   -> 5 SPS
+	1000,  // 1000 ms  -> 1 SPS
+	5000,  // 5000 ms  -> 0.2 SPS
+	10000, // 10000 ms -> 0.1 SPS
+};
 
 
 // The i2c read/write functions here assume that the FIFO size is never exceeded.
@@ -175,8 +186,8 @@ void hdc1080_handle_state(HDC1080 *hdc1080) {
 		}
 
 		case HDC1080_STATE_START_READING_MEASUREMENT: {
-			// Wait 2x conversion time, since we read temperature and humidity in one read
-			if(system_timer_is_time_elapsed_ms(hdc1080->last_state_change, HDC1080_CONVERSION_TIME*2)) {
+			// Wait for time according to user configured samples per second
+			if(system_timer_is_time_elapsed_ms(hdc1080->last_state_change, hdc1080_sps_to_ms[hdc1080->sps])) {
 				hdc1080_i2c_read_measurement(hdc1080, hdc1080->current_read_length);
 				hdc1080_change_state(hdc1080, HDC1080_STATE_READING);
 			}
@@ -285,7 +296,9 @@ void hdc1080_handle_state(HDC1080 *hdc1080) {
 	}
 
 	if(hdc1080->state != HDC1080_STATE_IDLE) {
-		if(system_timer_is_time_elapsed_ms(hdc1080->last_state_change, 50)) {
+		// If state didn't change for two times the samples per second amount
+		// we assume that there is an error and reset i2c.
+		if(system_timer_is_time_elapsed_ms(hdc1080->last_state_change, hdc1080_sps_to_ms[hdc1080->sps]*2)) {
 			hdc1080_init_i2c(hdc1080);
 			hdc1080_change_state(hdc1080, HDC1080_STATE_IDLE);
 		}
@@ -318,6 +331,7 @@ void hdc1080_init(HDC1080 *hdc1080) {
 	hdc1080->write_config      = true;
 	hdc1080->update_ids        = 1;
 	hdc1080->powerup_wait_time = system_timer_get_ms();
+	hdc1080->sps               = HUMIDITY_V2_SPS_1; // Default 1 sample per second
 
 	moving_average_init(&hdc1080->moving_average_temperature, 0, MOVING_AVERAGE_DEFAULT_LENGTH);
 	moving_average_init(&hdc1080->moving_average_humidity,    0, MOVING_AVERAGE_DEFAULT_LENGTH);

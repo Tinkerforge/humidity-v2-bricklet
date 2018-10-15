@@ -1,5 +1,5 @@
 /* humidity-v2-bricklet
- * Copyright (C) 2017 Olaf Lüke <olaf@tinkerforge.com>
+ * Copyright (C) 2017-2018 Olaf Lüke <olaf@tinkerforge.com>
  *
  * communication.h: TFP protocol message handling
  *
@@ -43,6 +43,31 @@ void communication_init(void);
 #define HUMIDITY_V2_HEATER_CONFIG_DISABLED 0
 #define HUMIDITY_V2_HEATER_CONFIG_ENABLED 1
 
+#define HUMIDITY_V2_SPS_20 0
+#define HUMIDITY_V2_SPS_10 1
+#define HUMIDITY_V2_SPS_5 2
+#define HUMIDITY_V2_SPS_1 3
+#define HUMIDITY_V2_SPS_02 4
+#define HUMIDITY_V2_SPS_01 5
+
+#define HUMIDITY_V2_BOOTLOADER_MODE_BOOTLOADER 0
+#define HUMIDITY_V2_BOOTLOADER_MODE_FIRMWARE 1
+#define HUMIDITY_V2_BOOTLOADER_MODE_BOOTLOADER_WAIT_FOR_REBOOT 2
+#define HUMIDITY_V2_BOOTLOADER_MODE_FIRMWARE_WAIT_FOR_REBOOT 3
+#define HUMIDITY_V2_BOOTLOADER_MODE_FIRMWARE_WAIT_FOR_ERASE_AND_REBOOT 4
+
+#define HUMIDITY_V2_BOOTLOADER_STATUS_OK 0
+#define HUMIDITY_V2_BOOTLOADER_STATUS_INVALID_MODE 1
+#define HUMIDITY_V2_BOOTLOADER_STATUS_NO_CHANGE 2
+#define HUMIDITY_V2_BOOTLOADER_STATUS_ENTRY_FUNCTION_NOT_PRESENT 3
+#define HUMIDITY_V2_BOOTLOADER_STATUS_DEVICE_IDENTIFIER_INCORRECT 4
+#define HUMIDITY_V2_BOOTLOADER_STATUS_CRC_MISMATCH 5
+
+#define HUMIDITY_V2_STATUS_LED_CONFIG_OFF 0
+#define HUMIDITY_V2_STATUS_LED_CONFIG_ON 1
+#define HUMIDITY_V2_STATUS_LED_CONFIG_SHOW_HEARTBEAT 2
+#define HUMIDITY_V2_STATUS_LED_CONFIG_SHOW_STATUS 3
+
 // Function and callback IDs and structs
 #define FID_GET_HUMIDITY 1
 #define FID_SET_HUMIDITY_CALLBACK_CONFIGURATION 2
@@ -54,6 +79,8 @@ void communication_init(void);
 #define FID_GET_HEATER_CONFIGURATION 10
 #define FID_SET_MOVING_AVERAGE_CONFIGURATION 11
 #define FID_GET_MOVING_AVERAGE_CONFIGURATION 12
+#define FID_SET_SAMPLES_PER_SECOND 13
+#define FID_GET_SAMPLES_PER_SECOND 14
 
 #define FID_CALLBACK_HUMIDITY 4
 #define FID_CALLBACK_TEMPERATURE 8
@@ -88,11 +115,28 @@ typedef struct {
 	uint16_t moving_average_length_temperature;
 } __attribute__((__packed__)) GetMovingAverageConfiguration_Response;
 
+typedef struct {
+	TFPMessageHeader header;
+	uint8_t sps;
+} __attribute__((__packed__)) SetSamplesPerSecond;
+
+typedef struct {
+	TFPMessageHeader header;
+} __attribute__((__packed__)) GetSamplesPerSecond;
+
+typedef struct {
+	TFPMessageHeader header;
+	uint8_t sps;
+} __attribute__((__packed__)) GetSamplesPerSecond_Response;
+
+
 // Function prototypes
 BootloaderHandleMessageResponse set_heater_configuration(const SetHeaterConfiguration *data);
 BootloaderHandleMessageResponse get_heater_configuration(const GetHeaterConfiguration *data, GetHeaterConfiguration_Response *response);
 BootloaderHandleMessageResponse set_moving_average_configuration(const SetMovingAverageConfiguration *data);
 BootloaderHandleMessageResponse get_moving_average_configuration(const GetMovingAverageConfiguration *data, GetMovingAverageConfiguration_Response *response);
+BootloaderHandleMessageResponse set_samples_per_second(const SetSamplesPerSecond *data);
+BootloaderHandleMessageResponse get_samples_per_second(const GetSamplesPerSecond *data, GetSamplesPerSecond_Response *response);
 
 // Callbacks
 bool handle_humidity_callback(void);
@@ -103,5 +147,6 @@ bool handle_temperature_callback(void);
 #define COMMUNICATION_CALLBACK_LIST_INIT \
 	handle_humidity_callback, \
 	handle_temperature_callback, \
+
 
 #endif
