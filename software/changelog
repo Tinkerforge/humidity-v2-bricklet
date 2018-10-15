@@ -7,5 +7,5 @@
 2018-10-04: 2.0.2 (d472a71)
 - Fix race condition with potential buffer overflow (through bricklib2)
 
-2018-10-15: 2.0.3 (TBD)
+2018-10-15: 2.0.3 (1644a67)
 - Add SetSamplesPerSecond configuration function
