@@ -4,5 +4,6 @@ setup:
 	# Handle incoming humidity callbacks
 	subscribe to tinkerforge/callback/humidity_v2_bricklet/XYZ/humidity
 	publish '{"register": true}' to tinkerforge/register/humidity_v2_bricklet/XYZ/humidity # Register humidity callback
+	
 	# Set period for humidity callback to 1s (1000ms) without a threshold
-	publish '{"period": 1000, "value_has_to_change": false, "option": "off", "min_humidity": 0, "max_humidity": 0}' to tinkerforge/request/humidity_v2_bricklet/XYZ/set_humidity_callback_configuration  
+	publish '{"period": 1000, "value_has_to_change": false, "option": "off", "min": 0, "max": 0}' to tinkerforge/request/humidity_v2_bricklet/XYZ/set_humidity_callback_configuration  
