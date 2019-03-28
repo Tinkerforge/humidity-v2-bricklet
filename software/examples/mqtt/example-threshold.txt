@@ -7,4 +7,4 @@ setup:
 	
 	# Configure threshold for humidity "outside of 30 to 60 %RH"
 	# with a debounce period of 10s (10000ms)
-	publish '{"period": 10000, "value_has_to_change": false, "option": "outside", "min": 3000, "max": 6000}' to tinkerforge/request/humidity_v2_bricklet/XYZ/set_humidity_callback_configuration  
+	publish '{"period": 10000, "value_has_to_change": false, "option": "outside", "min": 3000, "max": 6000}' to tinkerforge/request/humidity_v2_bricklet/XYZ/set_humidity_callback_configuration
