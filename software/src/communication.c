@@ -106,7 +106,7 @@ BootloaderHandleMessageResponse set_samples_per_second(const SetSamplesPerSecond
 BootloaderHandleMessageResponse get_samples_per_second(const GetSamplesPerSecond *data, GetSamplesPerSecond_Response *response) {
 	response->sps = hdc1080.sps;
 
-	return HANDLE_MESSAGE_RESPONSE_EMPTY;
+	return HANDLE_MESSAGE_RESPONSE_NEW_MESSAGE;
 }
 
 bool handle_humidity_callback(void) {

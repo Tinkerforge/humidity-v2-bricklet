@@ -9,3 +9,6 @@
 
 2018-10-15: 2.0.3 (1644a67)
 - Add SetSamplesPerSecond configuration function
+
+2019-04-04: 2.0.4 (TBD)
+- Fix bug in GetSamplesPerSecond (was not returning the value)
