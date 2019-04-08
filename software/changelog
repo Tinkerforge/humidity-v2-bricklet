@@ -13,5 +13,5 @@
 2019-04-04: 2.0.4 (1545f00)
 - Fix bug in GetSamplesPerSecond (was not returning the value)
 
-2019-04-08: 2.0.5 (TBD)
+2019-04-08: 2.0.5 (fb6c809)
 - Fix bug in GetSamplesPerSecond (packet length not set)
