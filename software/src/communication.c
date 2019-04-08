@@ -104,7 +104,8 @@ BootloaderHandleMessageResponse set_samples_per_second(const SetSamplesPerSecond
 }
 
 BootloaderHandleMessageResponse get_samples_per_second(const GetSamplesPerSecond *data, GetSamplesPerSecond_Response *response) {
-	response->sps = hdc1080.sps;
+	response->header.length = sizeof(GetSamplesPerSecond_Response);
+	response->sps           = hdc1080.sps;
 
 	return HANDLE_MESSAGE_RESPONSE_NEW_MESSAGE;
 }
