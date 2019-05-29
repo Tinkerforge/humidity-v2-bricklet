@@ -16,5 +16,5 @@
 2019-04-08: 2.0.5 (fb6c809)
 - Fix bug in GetSamplesPerSecond (packet length not set)
 
-2019-05-29: 2.0.6 (TBD)
+2019-05-29: 2.0.6 (cad8079)
 - Fix SPITFP IRQ race condition with other higher prio IRQs (through bricklib2)
