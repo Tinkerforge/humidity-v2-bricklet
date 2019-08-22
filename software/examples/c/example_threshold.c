@@ -34,7 +34,7 @@ int main(void) {
 	// Register humidity callback to function cb_humidity
 	humidity_v2_register_callback(&h,
 	                              HUMIDITY_V2_CALLBACK_HUMIDITY,
-	                              (void *)cb_humidity,
+	                              (void (*)(void))cb_humidity,
 	                              NULL);
 
 	// Configure threshold for humidity "outside of 30 to 60 %RH"
