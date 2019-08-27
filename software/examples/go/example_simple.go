@@ -20,7 +20,7 @@ func main() {
 
 	// Get current humidity.
 	humidity, _ := h.GetHumidity()
-	fmt.Printf("Humidity: %f %RH\n", float64(humidity)/100.0)
+	fmt.Printf("Humidity: %f %%RH\n", float64(humidity)/100.0)
 
 	fmt.Print("Press enter to exit.")
 	fmt.Scanln()
