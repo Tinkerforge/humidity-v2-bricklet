@@ -27,5 +27,5 @@ if __name__ == "__main__":
     # with a debounce period of 10s (10000ms)
     h.set_humidity_callback_configuration(10000, False, "o", 30*100, 60*100)
 
-    raw_input("Press key to exit\n") # Use input() in Python 3
+    input("Press key to exit\n") # Use raw_input() in Python 2
     ipcon.disconnect()
