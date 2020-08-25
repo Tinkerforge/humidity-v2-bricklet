@@ -1,5 +1,3 @@
-
-
 #include "bindings/hal_common.h"
 #include "bindings/bricklet_humidity_v2.h"
 
@@ -7,15 +5,12 @@
 
 void check(int rc, const char* msg);
 
-
-
 // Callback function for humidity callback
 void humidity_handler(TF_HumidityV2 *device, uint16_t humidity, void *user_data) {
 	(void)device; (void)user_data; // avoid unused parameter warning
 
 	tf_hal_printf("Humidity: %d 1/%d %%RH\n", humidity, 100.0);
 }
-
 
 TF_HumidityV2 h;
 

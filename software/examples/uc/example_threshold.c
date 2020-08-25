@@ -1,13 +1,9 @@
-
-
 #include "bindings/hal_common.h"
 #include "bindings/bricklet_humidity_v2.h"
 
 #define UID "XYZ" // Change XYZ to the UID of your Humidity Bricklet 2.0
 
 void check(int rc, const char* msg);
-
-
 
 // Callback function for humidity callback
 void humidity_handler(TF_HumidityV2 *device, uint16_t humidity, void *user_data) {
@@ -16,7 +12,6 @@ void humidity_handler(TF_HumidityV2 *device, uint16_t humidity, void *user_data)
 	tf_hal_printf("Humidity: %d 1/%d %%RH\n", humidity, 100.0);
 	tf_hal_printf("Recommended humidity for human comfort is 30 to 60 %%RH.\n");
 }
-
 
 TF_HumidityV2 h;
 

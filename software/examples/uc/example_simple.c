@@ -1,14 +1,9 @@
-
-
 #include "bindings/hal_common.h"
 #include "bindings/bricklet_humidity_v2.h"
 
 #define UID "XYZ" // Change XYZ to the UID of your Humidity Bricklet 2.0
 
 void check(int rc, const char* msg);
-
-
-
 
 TF_HumidityV2 h;
 
