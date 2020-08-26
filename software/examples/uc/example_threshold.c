@@ -19,16 +19,14 @@ void example_setup(TF_HalContext *hal) {
 	// Create device object
 	check(tf_humidity_v2_create(&h, UID, hal), "create device object");
 
-
 	// Register humidity callback to function humidity_handler
 	tf_humidity_v2_register_humidity_callback(&h,
-	                                         humidity_handler,
-	                                         NULL);
+	                                          humidity_handler,
+	                                          NULL);
 
 	// Configure threshold for humidity "outside of 30 to 60 %RH"
 	// with a debounce period of 10s (10000ms)
 	tf_humidity_v2_set_humidity_callback_configuration(&h, 10000, false, 'o', 30*100, 60*100);
-
 }
 
 void example_loop(TF_HalContext *hal) {
