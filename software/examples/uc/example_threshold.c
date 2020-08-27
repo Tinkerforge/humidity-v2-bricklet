@@ -5,15 +5,19 @@
 
 void check(int rc, const char* msg);
 
+void example_setup(TF_HalContext *hal);
+void example_loop(TF_HalContext *hal);
+
+
 // Callback function for humidity callback
-void humidity_handler(TF_HumidityV2 *device, uint16_t humidity, void *user_data) {
+static void humidity_handler(TF_HumidityV2 *device, uint16_t humidity, void *user_data) {
 	(void)device; (void)user_data; // avoid unused parameter warning
 
 	tf_hal_printf("Humidity: %d 1/%d %%RH\n", humidity, 100.0);
 	tf_hal_printf("Recommended humidity for human comfort is 30 to 60 %%RH.\n");
 }
 
-TF_HumidityV2 h;
+static TF_HumidityV2 h;
 
 void example_setup(TF_HalContext *hal) {
 	// Create device object
