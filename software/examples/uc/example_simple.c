@@ -23,7 +23,7 @@ void example_setup(TF_HalContext *hal) {
 	uint16_t humidity;
 	check(tf_humidity_v2_get_humidity(&h, &humidity), "get humidity");
 
-	tf_hal_printf("Humidity: %d 1/%d %%RH\n", humidity, 100.0);
+	tf_hal_printf("Humidity: %d 1/%d %%RH\n", humidity, 100);
 }
 
 void example_loop(TF_HalContext *hal) {
