@@ -17,7 +17,7 @@ void example_loop(TF_HalContext *hal);
 static void humidity_handler(TF_HumidityV2 *device, uint16_t humidity, void *user_data) {
 	(void)device; (void)user_data; // avoid unused parameter warning
 
-	tf_hal_printf("Humidity: %d 1/%d %%RH\n", humidity, 100.0);
+	tf_hal_printf("Humidity: %d 1/%d %%RH\n", humidity, 100);
 }
 
 static TF_HumidityV2 h;
