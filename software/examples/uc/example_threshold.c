@@ -9,8 +9,8 @@
 
 void check(int rc, const char* msg);
 
-void example_setup(TF_HalContext *hal);
-void example_loop(TF_HalContext *hal);
+void example_setup(TF_HAL *hal);
+void example_loop(TF_HAL *hal);
 
 
 // Callback function for humidity callback
@@ -23,7 +23,7 @@ static void humidity_handler(TF_HumidityV2 *device, uint16_t humidity, void *use
 
 static TF_HumidityV2 h;
 
-void example_setup(TF_HalContext *hal) {
+void example_setup(TF_HAL *hal) {
 	// Create device object
 	check(tf_humidity_v2_create(&h, UID, hal), "create device object");
 
@@ -37,7 +37,7 @@ void example_setup(TF_HalContext *hal) {
 	tf_humidity_v2_set_humidity_callback_configuration(&h, 10000, false, 'o', 30*100, 60*100);
 }
 
-void example_loop(TF_HalContext *hal) {
+void example_loop(TF_HAL *hal) {
 	// Poll for callbacks
 	tf_hal_callback_tick(hal, 0);
 }
