@@ -6,11 +6,11 @@
 
   (title_block
     (title "Humidity Bricklet")
-    (date "2017-04-28")
+    (date "2023-01-27")
     (rev "2.0")
     (company "Tinkerforge GmbH")
     (comment 1 "Licensed under CERN OHL v.1.1")
-    (comment 2 "Copyright (©) 2017, B.Nordmeyer <bastian@tinkerforge.com>")
+    (comment 2 "Copyright (©) 2023, B.Nordmeyer <bastian@tinkerforge.com>")
   )
 
   (lib_symbols
@@ -1030,7 +1030,7 @@
     (effects (font (size 0.9906 0.9906)) (justify left bottom))
     (uuid 212a3058-df3d-45ed-8007-5e38be69a4f8)
   )
-  (text "Copyright Tinkerforge GmbH 2017.\nThis documentation describes Open Hardware and is licensed under the\nCERN OHL v. 1.1.\nYou may redistribute and modify this documentation under the terms of the\nCERN OHL v.1.1. (http://ohwr.org/cernohl). This documentation is distributed\nWITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF\nMERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A\nPARTICULAR PURPOSE. Please see the CERN OHL v.1.1 for applicable\nconditions\n"
+  (text "Copyright Tinkerforge GmbH 2023.\nThis documentation describes Open Hardware and is licensed under the\nCERN OHL v. 1.1.\nYou may redistribute and modify this documentation under the terms of the\nCERN OHL v.1.1. (http://ohwr.org/cernohl). This documentation is distributed\nWITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF\nMERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A\nPARTICULAR PURPOSE. Please see the CERN OHL v.1.1 for applicable\nconditions\n"
     (at 13.97 195.58 0)
     (effects (font (size 1.016 1.016)) (justify left bottom))
     (uuid 64d6848b-6437-40ff-9521-88f7b220fb53)
